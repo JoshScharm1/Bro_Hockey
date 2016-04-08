@@ -22,14 +22,21 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
         super.viewDidLoad()
         
         puck = UIView(frame: CGRectMake(view.center.x - 10, view.center.y, 25, 25))
+        puck.backgroundColor = UIColor(patternImage: UIImage(named: "puck")!)
         
-        paddleOne = UIView(frame: CGRectMake(view.center.x - 40, view.center.y * 1.7, -30, 20))
+        
+
+        paddleOne = UIView(frame: CGRectMake(view.center.x - 40, view.center.y * 1.7, 80, 20))
         paddleOne.backgroundColor = UIColor.blueColor()
-        view.addSubview(paddleOne)
         paddleOne.layer.cornerRadius = 5
         paddleOne.clipsToBounds = true
         
-        paddleTwo = UIView(frame: CGRectMake(view.center.x - 40, view.center.y * 1.7, 80, 20))
+        view.addSubview(paddleOne)
+        view.addSubview(paddleTwo)
+        view.addSubview(puck)
+    
+        
+        paddleTwo = UIView(frame: CGRectMake(view.center.x - 40, view.center.y * 0.1, 80, 20))
         paddleTwo.backgroundColor = UIColor.redColor()
         view.addSubview(paddleTwo)
         paddleTwo.layer.cornerRadius = 5
@@ -79,20 +86,31 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
         
     }
     
-  
-    @IBAction func panGesture(sender: UIPanGestureRecognizer)
+ 
+    @IBAction func panGestureTwo(sender: UIPanGestureRecognizer)
     {
-        print("slide")
-        
-        let panGestureOne = sender.locationInView(view).x
-        paddleOne.center = CGPointMake(panGestureOne, paddleOne.center.y)
-        
-        myDynamicAnimator.updateItemUsingCurrentState(paddleOne)
+        print("slideTwo")
         
         let panGestureTwo = sender.locationInView(view).x
         paddleTwo.center = CGPointMake(panGestureTwo, paddleTwo.center.y)
         
         myDynamicAnimator.updateItemUsingCurrentState(paddleTwo)
-    }
+        
+        let panGestureOne = sender.locationInView(view).x
+        paddleOne.center = CGPointMake(panGestureOne, paddleOne.center.y)
+        
+        myDynamicAnimator.updateItemUsingCurrentState(paddleOne)
     
+    }
+  
+    
+    
+
+
+    
+
+
+
+    
+
 }

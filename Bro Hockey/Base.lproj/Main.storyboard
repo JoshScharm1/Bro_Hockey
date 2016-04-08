@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -63,19 +64,44 @@
                     <view key="view" contentMode="scaleToFill" id="ucR-DX-vPi">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pxa-4f-qqQ">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="299"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a64-KQ-KVQ">
+                                        <rect key="frame" x="180" y="86" width="240" height="128"/>
+                                        <gestureRecognizers/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.20970263450000001" blue="0.64649151829999996" alpha="1" colorSpace="calibratedRGB"/>
+                                <gestureRecognizers/>
+                            </view>
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lae-gR-tcv">
+                                <rect key="frame" x="0.0" y="300" width="600" height="300"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pjI-wp-gdj">
+                                        <rect key="frame" x="180" y="91" width="240" height="128"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.26115195050000001" green="1" blue="0.21778805209999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <gestureRecognizers/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="K2T-8O-TgM" appends="YES" id="gsb-6I-ZTj"/>
-                        </connections>
+                        <constraints>
+                            <constraint firstItem="lae-gR-tcv" firstAttribute="top" secondItem="Pxa-4f-qqQ" secondAttribute="bottom" id="Aq4-LJ-X0J"/>
+                            <constraint firstItem="lae-gR-tcv" firstAttribute="top" secondItem="Pxa-4f-qqQ" secondAttribute="bottom" id="I5K-Ar-00x"/>
+                            <constraint firstItem="Pxa-4f-qqQ" firstAttribute="leading" secondItem="ucR-DX-vPi" secondAttribute="leadingMargin" constant="-20" id="O66-4Y-hjs"/>
+                            <constraint firstItem="lae-gR-tcv" firstAttribute="leading" secondItem="ucR-DX-vPi" secondAttribute="leadingMargin" constant="-20" id="ZlU-VM-4x2"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="lae-gR-tcv" secondAttribute="trailing" constant="-20" id="ain-rr-yi2"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Pxa-4f-qqQ" secondAttribute="trailing" constant="-20" id="hnD-Uz-cgW"/>
+                            <constraint firstItem="oT4-aC-h1z" firstAttribute="top" secondItem="lae-gR-tcv" secondAttribute="bottom" id="pOB-Jx-DpC"/>
+                            <constraint firstItem="Pxa-4f-qqQ" firstAttribute="top" secondItem="ucR-DX-vPi" secondAttribute="topMargin" id="vQW-yY-Oku"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bnV-Ds-nCg" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="K2T-8O-TgM">
-                    <connections>
-                        <action selector="panGesture:" destination="B0K-hw-FvN" id="u8c-BT-iYF"/>
-                    </connections>
-                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1270" y="514"/>
         </scene>
