@@ -7,9 +7,11 @@
 //  ott changes
 
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController
 {
+    var music = AVAudioPlayer()
 
     override func viewDidLoad()
     {

@@ -10,8 +10,11 @@ import UIKit
 
 class GameViewController: UIViewController, UICollisionBehaviorDelegate
 {
-    var paddleOne = UIView()
-    var paddleTwo = UIView()
+    
+    @IBOutlet weak var imageViewOne: UIImageView!
+    @IBOutlet weak var imageViewTwo: UIImageView!
+    @IBOutlet weak var centerLine: UIImageView!
+    
     var puck = UIView()
     var collisionBehavior = UICollisionBehavior()
     var myDynamicAnimator = UIDynamicAnimator()
@@ -23,26 +26,11 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
         
         puck = UIView(frame: CGRectMake(view.center.x - 10, view.center.y, 25, 25))
         puck.backgroundColor = UIColor(patternImage: UIImage(named: "puck")!)
-        
-        
-
-        paddleOne = UIView(frame: CGRectMake(view.center.x - 40, view.center.y * 1.7, 80, 20))
-        paddleOne.backgroundColor = UIColor.blueColor()
-        paddleOne.layer.cornerRadius = 5
-        paddleOne.clipsToBounds = true
-        
-        view.addSubview(paddleOne)
-        view.addSubview(paddleTwo)
+  
         view.addSubview(puck)
+        view.addSubview(imageViewOne)
+        view.addSubview(imageViewTwo)
     
-        
-        paddleTwo = UIView(frame: CGRectMake(view.center.x - 40, view.center.y * 0.1, 80, 20))
-        paddleTwo.backgroundColor = UIColor.redColor()
-        view.addSubview(paddleTwo)
-        paddleTwo.layer.cornerRadius = 5
-        paddleTwo.clipsToBounds = true
-        
-        
         myDynamicAnimator = UIDynamicAnimator(referenceView: view)
         
         let puckDynamicBehavior = UIDynamicItemBehavior(items: [puck])
@@ -52,14 +40,14 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
         puckDynamicBehavior.allowsRotation = false
         myDynamicAnimator.addBehavior(puckDynamicBehavior)
         
-        let paddleOneDynamicBehavior = UIDynamicItemBehavior(items: [paddleOne])
+        let paddleOneDynamicBehavior = UIDynamicItemBehavior(items: [imageViewOne])
         paddleOneDynamicBehavior.density = 10000.0
         paddleOneDynamicBehavior.resistance = 0.0
         paddleOneDynamicBehavior.elasticity = 1.0
         paddleOneDynamicBehavior.allowsRotation = false
         myDynamicAnimator.addBehavior(paddleOneDynamicBehavior)
         
-        let paddleTwoDynamicBehavior = UIDynamicItemBehavior(items: [paddleTwo])
+        let paddleTwoDynamicBehavior = UIDynamicItemBehavior(items: [imageViewTwo])
         paddleTwoDynamicBehavior.density = 10000.0
         paddleTwoDynamicBehavior.resistance = 0.0
         paddleTwoDynamicBehavior.elasticity = 1.0
@@ -67,8 +55,8 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
         myDynamicAnimator.addBehavior(paddleTwoDynamicBehavior)
         
         everythingArray.append(puck)
-        everythingArray.append(paddleOne)
-        everythingArray.append(paddleTwo)
+        everythingArray.append(imageViewOne)
+        everythingArray.append(imageViewTwo)
         
         
         let pushBehavior = UIPushBehavior(items: [puck], mode: .Instantaneous)
@@ -82,35 +70,50 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
         collisionBehavior.collisionDelegate = self
         myDynamicAnimator.addBehavior(collisionBehavior)
 
-
-        
     }
     
  
-    @IBAction func panGestureTwo(sender: UIPanGestureRecognizer)
+    @IBAction func panGesture(sender: UIPanGestureRecognizer)
     {
-        print("slideTwo")
         
-        let panGestureTwo = sender.locationInView(view).x
-        paddleTwo.center = CGPointMake(panGestureTwo, paddleTwo.center.y)
+        var point = sender.locationInView(view)
         
-        myDynamicAnimator.updateItemUsingCurrentState(paddleTwo)
+        if point.y <= view.frame.height/2 - 50
+        {
+            imageViewOne.center = CGPointMake(point.x, point.y)
+             myDynamicAnimator.updateItemUsingCurrentState(imageViewOne)
+        }
+        if point.y >= view.frame.height/2 + 50
+        {
+            imageViewTwo.center = CGPointMake(point.x, point.y)
+            myDynamicAnimator.updateItemUsingCurrentState(imageViewTwo)
+        }
         
-        let panGestureOne = sender.locationInView(view).x
-        paddleOne.center = CGPointMake(panGestureOne, paddleOne.center.y)
-        
-        myDynamicAnimator.updateItemUsingCurrentState(paddleOne)
+    }
+    
+    func collisionBehavior(behavior: UICollisionBehavior, beganContactForItem item: UIDynamicItem, withBoundaryIdentifier identifier: NSCopying?, atPoint p: CGPoint)
+    {
+       if item.isEqual(puck) && p.y >= centerLine.center.y
+       {
+            puck.backgroundColor = UIColor.redColor()
+        }
+        if item.isEqual(puck) && p.y <= centerLine.center.y
+        {
+            puck.backgroundColor = UIColor.greenColor()
+        }
+                
+    }
+            
+    
+    
+    
+    
+    
+    
     
     }
+    
+
+    
+    
   
-    
-    
-
-
-    
-
-
-
-    
-
-}
