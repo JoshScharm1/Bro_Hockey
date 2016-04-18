@@ -17,6 +17,7 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
     
     var puck = UIView()
     var collisionBehavior = UICollisionBehavior()
+    var centerLineBehavior = UICollisionBehavior()
     var myDynamicAnimator = UIDynamicAnimator()
     var everythingArray : [UIView] = []
 
