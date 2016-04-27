@@ -91,17 +91,42 @@
                                 <rect key="frame" x="132" y="28" width="10" height="22"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ra-6f-pJk">
-                                <rect key="frame" x="43" y="295" width="11" height="21"/>
+                                <rect key="frame" x="13" y="293" width="11" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cAd-V1-zVW">
-                                <rect key="frame" x="43" y="352" width="11" height="21"/>
+                                <rect key="frame" x="13" y="350" width="11" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="black" translatesAutoresizingMaskIntoConstraints="NO" id="BAx-Sh-7sh">
+                                <rect key="frame" x="30" y="28" width="106" height="5"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="black" translatesAutoresizingMaskIntoConstraints="NO" id="v8F-cd-c7C">
+                                <rect key="frame" x="30" y="28" width="5" height="619"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="black" translatesAutoresizingMaskIntoConstraints="NO" id="4Gb-3I-Lgd">
+                                <rect key="frame" x="30" y="642" width="106" height="5"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="black" translatesAutoresizingMaskIntoConstraints="NO" id="s6h-i4-UZf">
+                                <rect key="frame" x="238" y="642" width="106" height="5"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="black" translatesAutoresizingMaskIntoConstraints="NO" id="32m-tV-LEG">
+                                <rect key="frame" x="339" y="28" width="5" height="619"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="black" translatesAutoresizingMaskIntoConstraints="NO" id="7iR-Qm-003">
+                                <rect key="frame" x="238" y="28" width="106" height="5"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="black" translatesAutoresizingMaskIntoConstraints="NO" id="wYb-Se-sm3">
+                                <rect key="frame" x="30" y="331" width="314" height="5"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
@@ -114,13 +139,19 @@
                         <outlet property="TopRightGoalPost" destination="Afb-dL-bRO" id="7mo-Jy-Phn"/>
                         <outlet property="bottomGoalScore" destination="xeV-9s-L0g" id="IvZ-Jv-2z4"/>
                         <outlet property="bottomLeftGoalPost" destination="m03-MP-1bz" id="gri-Oo-lDy"/>
+                        <outlet property="bottomLeftSideLine" destination="4Gb-3I-Lgd" id="8c8-7B-ySe"/>
                         <outlet property="bottomRightGoalPost" destination="jJw-Kj-S53" id="2gL-4x-YpN"/>
+                        <outlet property="bottomRightSideLine" destination="s6h-i4-UZf" id="Zl6-hc-22R"/>
                         <outlet property="bottomSideLivesLabel" destination="cAd-V1-zVW" id="ab2-1X-EfC"/>
                         <outlet property="imageViewOne" destination="ID0-Za-CCq" id="VM0-Ph-3Cf"/>
                         <outlet property="imageViewTwo" destination="fII-Yc-JUa" id="38w-zl-1O9"/>
+                        <outlet property="leftSideLine" destination="v8F-cd-c7C" id="J8f-qB-V0l"/>
+                        <outlet property="rightSideLine" destination="32m-tV-LEG" id="Iw0-S6-uUb"/>
                         <outlet property="topGoalScore" destination="LSQ-dC-QXg" id="rLC-DC-txi"/>
                         <outlet property="topLeftGoalPost" destination="ykT-bC-FVI" id="vzO-hT-CpP"/>
+                        <outlet property="topLeftSideLine" destination="BAx-Sh-7sh" id="3JC-Tq-ZhH"/>
                         <outlet property="topRightGoalPost" destination="Afb-dL-bRO" id="Jyz-gb-DGF"/>
+                        <outlet property="topRightSideLine" destination="7iR-Qm-003" id="Z1j-jJ-1Ni"/>
                         <outlet property="topSideLivesLabel" destination="3Ra-6f-pJk" id="R4s-Hl-Mrf"/>
                     </connections>
                 </viewController>
@@ -131,7 +162,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1230.5" y="404"/>
+            <point key="canvasLocation" x="1230.5" y="403.5"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="l30-xU-nZw">

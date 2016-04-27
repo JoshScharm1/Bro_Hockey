@@ -7,13 +7,13 @@
 //
 
 import UIKit
+import AVFoundation
 
 class GameViewController: UIViewController, UICollisionBehaviorDelegate
 {
     
     @IBOutlet weak var imageViewOne: UIImageView!
     @IBOutlet weak var imageViewTwo: UIImageView!
-    @IBOutlet weak var centerLine: UIImageView!
     @IBOutlet weak var bottomGoalScore: UIImageView!
     @IBOutlet weak var bottomLeftGoalPost: UIImageView!
     @IBOutlet weak var bottomRightGoalPost: UIImageView!
@@ -22,7 +22,12 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
     @IBOutlet weak var topRightGoalPost: UIImageView!
     @IBOutlet weak var topSideLivesLabel: UILabel!
     @IBOutlet weak var bottomSideLivesLabel: UILabel!
-    
+    @IBOutlet weak var rightSideLine: UIImageView!
+    @IBOutlet weak var leftSideLine: UIImageView!
+    @IBOutlet weak var topRightSideLine: UIImageView!
+    @IBOutlet weak var topLeftSideLine: UIImageView!
+    @IBOutlet weak var bottomLeftSideLine: UIImageView!
+    @IBOutlet weak var bottomRightSideLine: UIImageView!
     
     
     var puck = UIView()
@@ -30,7 +35,7 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
     var myDynamicAnimator = UIDynamicAnimator()
     var everythingArray : [UIView] = []
     var livesOne = 0
-    var LivesTwo = 0
+    var livesTwo = 0
     
     
   
@@ -39,7 +44,8 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
     {
         super.viewDidLoad()
         
-        puck = UIView(frame: CGRectMake(view.center.x, view.center.y, 24, 24))
+
+        puck = UIView(frame: CGRectMake(view.center.x - 12, view.center.y - 12, 24, 24))
         puck.backgroundColor = UIColor(patternImage: UIImage(named: "puck")!)
   
         view.addSubview(puck)
@@ -51,6 +57,13 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
         view.addSubview(topGoalScore)
         view.addSubview(topLeftGoalPost)
         view.addSubview(topRightGoalPost)
+        view.addSubview(rightSideLine)
+        view.addSubview(leftSideLine)
+        view.addSubview(topRightSideLine)
+        view.addSubview(topLeftSideLine)
+        view.addSubview(bottomRightSideLine)
+        view.addSubview(bottomLeftSideLine)
+        
         
      
     
@@ -62,7 +75,62 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
         puckDynamicBehavior.elasticity = 1.0
         puckDynamicBehavior.allowsRotation = false
         myDynamicAnimator.addBehavior(puckDynamicBehavior)
+        
+        let rightSideLineDynamicBehavior = UIDynamicItemBehavior(items: [rightSideLine])
+        rightSideLineDynamicBehavior.density = 100000.0
+        rightSideLineDynamicBehavior.anchored = true
+        rightSideLineDynamicBehavior.friction = 0.0
+        rightSideLineDynamicBehavior.resistance = 0.0
+        rightSideLineDynamicBehavior.elasticity = 1.0
+        rightSideLineDynamicBehavior.allowsRotation = false
+        myDynamicAnimator.addBehavior(rightSideLineDynamicBehavior)
+        
+        let leftSideLineDynamicBehavior = UIDynamicItemBehavior(items: [leftSideLine])
+        leftSideLineDynamicBehavior.density = 100000.0
+        leftSideLineDynamicBehavior.anchored = true
+        leftSideLineDynamicBehavior.friction = 0.0
+        leftSideLineDynamicBehavior.resistance = 0.0
+        leftSideLineDynamicBehavior.elasticity = 1.0
+        leftSideLineDynamicBehavior.allowsRotation = false
+        myDynamicAnimator.addBehavior(leftSideLineDynamicBehavior)
+        
+        let topRightSideLineDynamicBehavior = UIDynamicItemBehavior(items: [topRightSideLine])
+        topRightSideLineDynamicBehavior.density = 100000.0
+        topRightSideLineDynamicBehavior.anchored = true
+        topRightSideLineDynamicBehavior.friction = 0.0
+        topRightSideLineDynamicBehavior.resistance = 0.0
+        topRightSideLineDynamicBehavior.elasticity = 1.0
+        topRightSideLineDynamicBehavior.allowsRotation = false
+        myDynamicAnimator.addBehavior(topRightSideLineDynamicBehavior)
+        
+        let topLeftSideLineDynamicBehavior = UIDynamicItemBehavior(items: [topLeftSideLine])
+        topLeftSideLineDynamicBehavior.density = 100000.0
+        topLeftSideLineDynamicBehavior.anchored = true
+        topLeftSideLineDynamicBehavior.friction = 0.0
+        topLeftSideLineDynamicBehavior.resistance = 0.0
+        topLeftSideLineDynamicBehavior.elasticity = 1.0
+        topLeftSideLineDynamicBehavior.allowsRotation = false
+        myDynamicAnimator.addBehavior(topLeftSideLineDynamicBehavior)
+        
+        let bottomLeftSideLineDynamicBehavior = UIDynamicItemBehavior(items: [bottomLeftSideLine])
+        bottomLeftSideLineDynamicBehavior.density = 100000.0
+        bottomLeftSideLineDynamicBehavior.anchored = true
+        bottomLeftSideLineDynamicBehavior.friction = 0.0
+        bottomLeftSideLineDynamicBehavior.resistance = 0.0
+        bottomLeftSideLineDynamicBehavior.elasticity = 1.0
+        bottomLeftSideLineDynamicBehavior.allowsRotation = false
+        myDynamicAnimator.addBehavior(bottomLeftSideLineDynamicBehavior)
+        
+        let bottomRightSideLineDynamicBehavior = UIDynamicItemBehavior(items: [bottomRightSideLine])
+        bottomRightSideLineDynamicBehavior.density = 100000.0
+        bottomRightSideLineDynamicBehavior.anchored = true
+        bottomRightSideLineDynamicBehavior.friction = 0.0
+        bottomRightSideLineDynamicBehavior.resistance = 0.0
+        bottomRightSideLineDynamicBehavior.elasticity = 1.0
+        bottomRightSideLineDynamicBehavior.allowsRotation = false
+        myDynamicAnimator.addBehavior(bottomRightSideLineDynamicBehavior)
       
+        
         let bottomGoalScoreDynamicBehavior = UIDynamicItemBehavior(items: [bottomGoalScore])
         bottomGoalScoreDynamicBehavior.density = 100000.0
         bottomGoalScoreDynamicBehavior.anchored = true
@@ -140,6 +208,12 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
         everythingArray.append(topGoalScore)
         everythingArray.append(topLeftGoalPost)
         everythingArray.append(topRightGoalPost)
+        everythingArray.append(leftSideLine)
+        everythingArray.append(rightSideLine)
+        everythingArray.append(topRightSideLine)
+        everythingArray.append(topLeftSideLine)
+        everythingArray.append(bottomLeftSideLine)
+        everythingArray.append(bottomRightSideLine)
         
         collisionBehavior = UICollisionBehavior(items: everythingArray)
         collisionBehavior.translatesReferenceBoundsIntoBoundary = true
@@ -181,6 +255,7 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
         pushBehavior.angle = 1.1
         pushBehavior.magnitude = 0.2
         
+        
         var firstHit = false
         
        if firstHit == false
@@ -204,28 +279,28 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
     
         if item1.isEqual(puck) && item2.isEqual(topGoalScore) || item1.isEqual(topGoalScore) && item2.isEqual(puck)
             {
-                livesOne++
+                livesOne += 1
                 bottomSideLivesLabel.text = "\(livesOne)"
-                puck.center = view.center
+                puck.center.y = view.center.y - 20
                 myDynamicAnimator.updateItemUsingCurrentState(puck)
-                imageViewTwo.center.x = view.center.x - 90
-                imageViewTwo.center.y = view.center.y + 90
-                imageViewOne.center.x = view.center.x - 90
-                imageViewOne.center.y = view.center.y - 90
-                  myDynamicAnimator.updateItemUsingCurrentState(imageViewOne)
+                imageViewTwo.center.x = view.center.x
+                imageViewTwo.center.y = view.center.y + 200
+                imageViewOne.center.x = view.center.x
+                imageViewOne.center.y = view.center.y - 200
+                myDynamicAnimator.updateItemUsingCurrentState(imageViewOne)
                 myDynamicAnimator.updateItemUsingCurrentState(imageViewTwo)
 
             }
         if item1.isEqual(puck) && item2.isEqual(bottomGoalScore) || item1.isEqual(bottomGoalScore) && item2.isEqual(puck)
         {
-            LivesTwo++
-            topSideLivesLabel.text = "\(LivesTwo)"
-            puck.center = view.center
+            livesTwo += 1
+            topSideLivesLabel.text = "\(livesTwo)"
+            puck.center.y = view.center.y + 20
             myDynamicAnimator.updateItemUsingCurrentState(puck)
-            imageViewTwo.center.x = view.center.x - 90
-            imageViewTwo.center.y = view.center.y + 90
-            imageViewOne.center.x = view.center.x - 90
-            imageViewOne.center.y = view.center.y - 90
+            imageViewTwo.center.x = view.center.x
+            imageViewTwo.center.y = view.center.y + 200
+            imageViewOne.center.x = view.center.x
+            imageViewOne.center.y = view.center.y - 200
             myDynamicAnimator.updateItemUsingCurrentState(imageViewTwo)
             myDynamicAnimator.updateItemUsingCurrentState(imageViewOne)
 
