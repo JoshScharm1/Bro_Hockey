@@ -64,9 +64,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="flip fist" translatesAutoresizingMaskIntoConstraints="NO" id="ID0-Za-CCq">
-                                <rect key="frame" x="118" y="174" width="60" height="64"/>
-                            </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="fist" translatesAutoresizingMaskIntoConstraints="NO" id="fII-Yc-JUa">
                                 <rect key="frame" x="157" y="448" width="60" height="64"/>
                             </imageView>
@@ -126,6 +123,12 @@
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="black" translatesAutoresizingMaskIntoConstraints="NO" id="wYb-Se-sm3">
                                 <rect key="frame" x="30" y="331" width="314" height="5"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="centerCircle" translatesAutoresizingMaskIntoConstraints="NO" id="T5D-3L-EKM">
+                                <rect key="frame" x="152" y="299" width="70" height="70"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="flip fist" translatesAutoresizingMaskIntoConstraints="NO" id="ID0-Za-CCq">
+                                <rect key="frame" x="157" y="151" width="60" height="64"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -201,6 +204,7 @@
     </scenes>
     <resources>
         <image name="black" width="160" height="90"/>
+        <image name="centerCircle" width="564" height="599"/>
         <image name="fist" width="432" height="594"/>
         <image name="flip fist" width="432" height="594"/>
     </resources>
