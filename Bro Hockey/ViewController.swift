@@ -41,5 +41,8 @@ class ViewController: UIViewController, AVAudioPlayerDelegate
         return audioPlayer
     }
 
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        musicPlayer.stop()
+    }
 }
 

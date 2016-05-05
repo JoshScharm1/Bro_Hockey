@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class GameViewController: UIViewController, UICollisionBehaviorDelegate
+class GameViewController: UIViewController, UICollisionBehaviorDelegate, AVAudioPlayerDelegate
 {
     
     @IBOutlet weak var imageViewOne: UIImageView!
@@ -29,6 +29,12 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
     @IBOutlet weak var bottomLeftSideLine: UIImageView!
     @IBOutlet weak var bottomRightSideLine: UIImageView!
     
+    var goalPostHit = AVAudioPlayer()
+    var sidesHit = AVAudioPlayer()
+    var winSound = AVAudioPlayer()
+    var scoreSOund = AVAudioPlayer()
+    var fistSound = AVAudioPlayer()
+    var goalSound = AVAudioPlayer()
     
     var puck = UIView()
     var collisionBehavior = UICollisionBehavior()
@@ -47,13 +53,29 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
 
     gameCreator()
 
+ 
         
 
         
         
 
     }
-  
+    func initAudio(fileName: NSString, fileType: NSString) -> AVAudioPlayer? {
+        
+        let asset = NSDataAsset(name: fileName as String)
+        
+        var audioPlayer : AVAudioPlayer?
+        
+        do {
+            
+            try audioPlayer = AVAudioPlayer(data: asset!.data, fileTypeHint: fileType as String)
+            
+        } catch {
+            print("Audio Player Not Initialized")
+        }
+        return audioPlayer
+    }
+
  
     @IBAction func panGesture(sender: UIPanGestureRecognizer)
     {
@@ -79,6 +101,67 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
     
     func collisionBehavior(behavior: UICollisionBehavior, beganContactForItem item1: UIDynamicItem, withItem item2: UIDynamicItem, atPoint p: CGPoint)
     {
+        if item1.isEqual(puck) && item2.isEqual(topRightGoalPost) || item1.isEqual(topRightGoalPost) && item2.isEqual(puck)
+        {
+            goalPostHit.play()
+            
+            
+        }
+        if item1.isEqual(puck) && item2.isEqual(topLeftGoalPost) || item1.isEqual(topLeftGoalPost) && item2.isEqual(puck)
+        {
+            goalPostHit.play()
+        
+            
+        }
+        if item1.isEqual(puck) && item2.isEqual(bottomLeftGoalPost) || item1.isEqual(bottomLeftGoalPost) && item2.isEqual(puck)
+        {
+            goalPostHit.play()
+            
+            
+        }
+        if item1.isEqual(puck) && item2.isEqual(bottomRightGoalPost) || item1.isEqual(bottomRightGoalPost) && item2.isEqual(puck)
+        {
+            goalPostHit.play()
+            
+            
+        }
+
+
+        if item1.isEqual(puck) && item2.isEqual(rightSideLine) || item1.isEqual(rightSideLine) && item2.isEqual(puck)
+        {
+            
+            sidesHit.play()
+            
+        }
+        if item1.isEqual(puck) && item2.isEqual(leftSideLine) || item1.isEqual(leftSideLine) && item2.isEqual(puck)
+        {
+            
+            sidesHit.play()
+            
+        }
+        if item1.isEqual(puck) && item2.isEqual(topLeftSideLine) || item1.isEqual(topLeftSideLine) && item2.isEqual(puck)
+        {
+          
+            sidesHit.play()
+            
+        }
+        if item1.isEqual(puck) && item2.isEqual(topRightSideLine) || item1.isEqual(topRightSideLine) && item2.isEqual(puck)
+        {
+            sidesHit.play()
+            
+        }
+        if item1.isEqual(puck) && item2.isEqual(bottomRightSideLine) || item1.isEqual(bottomRightSideLine) && item2.isEqual(puck)
+        {
+            sidesHit.play()
+            
+        }
+        if item1.isEqual(puck) && item2.isEqual(bottomLeftSideLine) || item1.isEqual(bottomLeftSideLine) && item2.isEqual(puck)
+        {
+            sidesHit.play()
+            
+        }
+
+
         let pushBehavior = UIPushBehavior(items: [puck], mode: .Instantaneous)
         pushBehavior.angle = 1.1
         pushBehavior.magnitude = 0.2
@@ -94,12 +177,13 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
          if item1.isEqual(puck) && item2.isEqual(imageViewOne) || item1.isEqual(imageViewOne) && item2.isEqual(puck)
          {
              myDynamicAnimator.addBehavior(pushBehavior)
-            
+            fistSound.play()
             
         }
         if item1.isEqual(puck) && item2.isEqual(imageViewTwo) || item1.isEqual(imageViewTwo) && item2.isEqual(puck)
         {
              myDynamicAnimator.addBehavior(pushBehavior)
+            fistSound.play()
         }
         
         firstHit = true
@@ -108,7 +192,7 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
     
         if item1.isEqual(puck) && item2.isEqual(topGoalScore) || item1.isEqual(topGoalScore) && item2.isEqual(puck)
             {
-               
+                goalSound.play()
                 myDynamicAnimator.removeBehavior(puckDynamicBehavior)
                 collisionBehavior.removeItem(puck)
                 puck.removeFromSuperview()
@@ -119,7 +203,7 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
                 
                 livesOne += 1
                 bottomSideLivesLabel.text = "\(livesOne)"
-                puck.center.y = view.center.y - 50
+                puck.center.y = view.center.y - 70
                 puck.center.x = view.center.x
                 imageViewTwo.center.x = view.center.x
                 imageViewTwo.center.y = view.center.y + 200
@@ -128,13 +212,23 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
                 myDynamicAnimator.updateItemUsingCurrentState(imageViewOne)
                 myDynamicAnimator.updateItemUsingCurrentState(imageViewTwo)
                 myDynamicAnimator.updateItemUsingCurrentState(puck)
-               
+                if livesOne == 5
+                {
+                    resetPlayer()
+                }
+                
+                if livesTwo == 5
+                {
+                    resetPlayer()
+                }
+                
                 
                
         }
         
         if item1.isEqual(puck) && item2.isEqual(bottomGoalScore) || item1.isEqual(bottomGoalScore) && item2.isEqual(puck)
         {
+            goalSound.play()
             myDynamicAnimator.removeBehavior(puckDynamicBehavior)
             collisionBehavior.removeItem(puck)
             puck.removeFromSuperview()
@@ -145,7 +239,7 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
             
             livesTwo += 1
             topSideLivesLabel.text = "\(livesTwo)"
-            puck.center.y = view.center.y + 50
+            puck.center.y = view.center.y + 70
             puck.center.x = view.center.x
             imageViewTwo.center.x = view.center.x
             imageViewTwo.center.y = view.center.y + 200
@@ -154,12 +248,26 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
             myDynamicAnimator.updateItemUsingCurrentState(imageViewOne)
             myDynamicAnimator.updateItemUsingCurrentState(imageViewTwo)
             myDynamicAnimator.updateItemUsingCurrentState(puck)
+            goalSound.play()
+            
+            if livesOne == 5
+            {
+                resetPlayer()
+                winSound.play()
+            }
+            
+            if livesTwo == 5
+            {
+                resetPlayer()
+                winSound.play()
+            }
+            
            
 
         }
 
         }
-    
+   
     func makePuck()
     {
         
@@ -184,6 +292,13 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
     
     func gameCreator()
     {
+        fistSound = initAudio("punch", fileType: "mp3")!
+        sidesHit = initAudio("boing", fileType: "mp3")!
+        winSound = initAudio("gameWon", fileType: "mp3")!
+        goalSound = initAudio("finalBuzzer", fileType: "mp3")!
+        goalPostHit = initAudio("postHit", fileType: "mp3")!
+        
+        
         
 
         myDynamicAnimator = UIDynamicAnimator(referenceView: view)
@@ -354,6 +469,32 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate
 
     }
     
+    func resetPlayer()
+    {
+        let alert = UIAlertController(title: "You Won!", message: "Great Job!", preferredStyle: UIAlertControllerStyle.Alert)
+      
+        let resetButton = UIAlertAction(title: "Play Again?", style: UIAlertActionStyle.Default, handler:
+            {sender in
+                
+                self.livesTwo = 0
+                self.livesOne = 0
+                self.topSideLivesLabel.text = "\(self.livesTwo)"
+                self.bottomSideLivesLabel.text = "\(self.livesOne)"
+                self.puck.center.x = (self.view.center.x)
+                self.puck.center.y = (self.view.center.y)
+                self.myDynamicAnimator.updateItemUsingCurrentState(self.puck)
+                self.winSound.stop()
+                
+
+        })
+        
+
+        
+        alert.addAction(resetButton)
+        presentViewController(alert, animated: true, completion: nil)
+        
+    }
+
     
     }
     
