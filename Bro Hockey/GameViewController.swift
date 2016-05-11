@@ -35,6 +35,7 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate, AVAudio
     var scoreSOund = AVAudioPlayer()
     var fistSound = AVAudioPlayer()
     var goalSound = AVAudioPlayer()
+    var fightMusic = AVAudioPlayer()
     
     var puck = UIView()
     var collisionBehavior = UICollisionBehavior()
@@ -44,6 +45,7 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate, AVAudio
     var livesTwo = 0
     var puckDynamicBehavior = UIDynamicItemBehavior()
     
+   
     
     override func viewDidLoad()
     {
@@ -52,13 +54,10 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate, AVAudio
     makePuck()
 
     gameCreator()
-
- 
-        
-
         
         
-
+ topSideLivesLabel.transform = CGAffineTransformMakeRotation(CGFloat(M_PI))
+        
     }
     func initAudio(fileName: NSString, fileType: NSString) -> AVAudioPlayer? {
         
@@ -212,15 +211,15 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate, AVAudio
                 myDynamicAnimator.updateItemUsingCurrentState(imageViewOne)
                 myDynamicAnimator.updateItemUsingCurrentState(imageViewTwo)
                 myDynamicAnimator.updateItemUsingCurrentState(puck)
-                if livesOne == 5
+                
+                if livesOne == 2
                 {
-                    resetPlayer()
+                    resetBottomPlayer()
+                    winSound.play()
+                    fightMusic.stop()
+
                 }
                 
-                if livesTwo == 5
-                {
-                    resetPlayer()
-                }
                 
                 
                
@@ -250,16 +249,11 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate, AVAudio
             myDynamicAnimator.updateItemUsingCurrentState(puck)
             goalSound.play()
             
-            if livesOne == 5
+            if livesTwo == 2
             {
-                resetPlayer()
+                resetTopPlayer()
                 winSound.play()
-            }
-            
-            if livesTwo == 5
-            {
-                resetPlayer()
-                winSound.play()
+                fightMusic.stop()
             }
             
            
@@ -271,7 +265,7 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate, AVAudio
     func makePuck()
     {
         
-        puck = UIView(frame: CGRectMake(view.center.x - 12, view.center.y - 12, 25, 25))
+        puck = UIView(frame: CGRectMake(view.center.x - 12, view.center.y - 12, 23.5, 23.5))
         puck.backgroundColor = UIColor(patternImage: UIImage(named: "puck")!)
         print("puckImageCreated")
      
@@ -293,10 +287,11 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate, AVAudio
     func gameCreator()
     {
         fistSound = initAudio("punch", fileType: "mp3")!
-        sidesHit = initAudio("boing", fileType: "mp3")!
+        sidesHit = initAudio("splat", fileType: "mp3")!
         winSound = initAudio("gameWon", fileType: "mp3")!
         goalSound = initAudio("finalBuzzer", fileType: "mp3")!
         goalPostHit = initAudio("postHit", fileType: "mp3")!
+        fightMusic = initAudio("fightMusic", fileType: "mp3")!
         
         
         
@@ -464,14 +459,15 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate, AVAudio
         collisionBehavior.collisionMode = .Everything
         collisionBehavior.collisionDelegate = self
         myDynamicAnimator.addBehavior(collisionBehavior)
-
+        
+        fightMusic.play()
         
 
     }
     
-    func resetPlayer()
+    func resetBottomPlayer()
     {
-        let alert = UIAlertController(title: "You Won!", message: "Great Job!", preferredStyle: UIAlertControllerStyle.Alert)
+        let alert = UIAlertController(title: "Bottom Player Wins!!", message: "Great Job!", preferredStyle: UIAlertControllerStyle.Alert)
       
         let resetButton = UIAlertAction(title: "Play Again?", style: UIAlertActionStyle.Default, handler:
             {sender in
@@ -482,9 +478,17 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate, AVAudio
                 self.bottomSideLivesLabel.text = "\(self.livesOne)"
                 self.puck.center.x = (self.view.center.x)
                 self.puck.center.y = (self.view.center.y)
+                self.imageViewTwo.center.x = self.view.center.x
+                self.imageViewTwo.center.y = self.view.center.y + 200
+                self.imageViewOne.center.x = self.view.center.x
+                self.imageViewOne.center.y = self.view.center.y - 200
+                self.myDynamicAnimator.updateItemUsingCurrentState(self.imageViewOne)
+                 self.myDynamicAnimator.updateItemUsingCurrentState(self.imageViewTwo)
                 self.myDynamicAnimator.updateItemUsingCurrentState(self.puck)
                 self.winSound.stop()
-                
+                self.winSound.currentTime = 0.0
+                self.fightMusic.currentTime = 0.0
+                self.fightMusic.play()
 
         })
         
@@ -492,6 +496,41 @@ class GameViewController: UIViewController, UICollisionBehaviorDelegate, AVAudio
         
         alert.addAction(resetButton)
         presentViewController(alert, animated: true, completion: nil)
+        
+    }
+    func resetTopPlayer()
+    {
+        let alert = UIAlertController(title: "Top Player Wins!", message: "Great Job!", preferredStyle: UIAlertControllerStyle.Alert)
+    
+        let resetButton = UIAlertAction(title: "Play Again?", style: UIAlertActionStyle.Default, handler:
+            {sender in
+                
+                self.livesTwo = 0
+                self.livesOne = 0
+                self.topSideLivesLabel.text = "\(self.livesTwo)"
+                self.bottomSideLivesLabel.text = "\(self.livesOne)"
+                self.puck.center.x = (self.view.center.x)
+                self.puck.center.y = (self.view.center.y)
+                self.imageViewTwo.center.x = self.view.center.x
+                self.imageViewTwo.center.y = self.view.center.y + 200
+                self.imageViewOne.center.x = self.view.center.x
+                self.imageViewOne.center.y = self.view.center.y - 200
+                self.myDynamicAnimator.updateItemUsingCurrentState(self.imageViewOne)
+                self.myDynamicAnimator.updateItemUsingCurrentState(self.imageViewTwo)
+                self.myDynamicAnimator.updateItemUsingCurrentState(self.puck)
+                self.winSound.stop()
+                self.winSound.currentTime = 0.0
+                self.fightMusic.currentTime = 0.0
+                self.fightMusic.play()
+                
+        })
+        
+        
+        
+        alert.addAction(resetButton)
+        presentViewController(alert, animated: true, completion: nil)
+        
+        
         
     }
 
